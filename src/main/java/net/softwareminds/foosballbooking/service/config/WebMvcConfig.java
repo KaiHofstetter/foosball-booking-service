@@ -1,7 +1,8 @@
 package net.softwareminds.foosballbooking.service.config;
 
 import net.softwareminds.foosballbooking.service.controller.AccessConfirmationController;
-import net.softwareminds.foosballbooking.service.controller.FoosballServiceController;
+import net.softwareminds.foosballbooking.service.controller.FoosballBookingController;
+import net.softwareminds.foosballbooking.service.repository.BookingStorage;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +24,6 @@ import java.util.Arrays;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-
-  @Bean
-  public FoosballServiceController foosballServiceController() {
-    return new FoosballServiceController();
-  }
 
   @Bean
   public ContentNegotiatingViewResolver contentViewResolver() throws Exception {
@@ -59,5 +55,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
     configurer.enable();
+  }
+
+  @Bean
+  public FoosballBookingController foosballServiceController() {
+    return new FoosballBookingController(new BookingStorage());
   }
 }
