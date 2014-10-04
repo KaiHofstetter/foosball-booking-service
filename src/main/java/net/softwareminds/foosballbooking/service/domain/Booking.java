@@ -1,19 +1,29 @@
 package net.softwareminds.foosballbooking.service.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import net.softwareminds.foosballbooking.service.util.JsonLocalDateTimeDeserializer;
 import net.softwareminds.foosballbooking.service.util.JsonLocalDateTimeSerializer;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Booking {
-  private LocalDateTime begin=null;
-  private LocalDateTime end=null;
 
-  private String user=null;
-  private String comment=null;
+  private UUID id = UUID.randomUUID();
 
-  public Booking(){}
+  private LocalDateTime begin = null;
+  private LocalDateTime end = null;
+
+  private String user = null;
+  private String comment = null;
+
+  public Booking() {
+  }
 
   public Booking(LocalDateTime begin, LocalDateTime end, String user, String comment) {
     this.begin = begin;
@@ -22,9 +32,23 @@ public class Booking {
     this.comment = comment;
   }
 
+  public UUID getId() {
+    return id;
+  }
+
+  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
+  public void setBegin(LocalDateTime begin) {
+    this.begin = begin;
+  }
+
   @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
   public LocalDateTime getBegin() {
     return begin;
+  }
+
+  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
+  public void setEnd(LocalDateTime end) {
+    this.end = end;
   }
 
   @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
@@ -32,8 +56,16 @@ public class Booking {
     return end;
   }
 
+  public void setUser(String user) {
+    this.user = user;
+  }
+
   public String getUser() {
     return user;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public String getComment() {
@@ -49,30 +81,18 @@ public class Booking {
       return false;
     }
 
-    Booking booking = (Booking) o;
+    final Booking booking = (Booking) o;
 
-    if (!begin.equals(booking.begin)) {
-      return false;
-    }
-    if (!comment.equals(booking.comment)) {
-      return false;
-    }
-    if (!end.equals(booking.end)) {
-      return false;
-    }
-    if (!user.equals(booking.user)) {
-      return false;
-    }
-
-    return true;
+    return new EqualsBuilder().append(this.id, booking.id)
+                              .append(this.begin, booking.begin)
+                              .append(this.end, booking.end)
+                              .append(this.comment, booking.comment)
+                              .append(this.user, booking.user)
+                              .build();
   }
 
   @Override
   public int hashCode() {
-    int result = begin.hashCode();
-    result = 31 * result + end.hashCode();
-    result = 31 * result + user.hashCode();
-    result = 31 * result + comment.hashCode();
-    return result;
+    return new HashCodeBuilder().append(id).append(begin).append(end).append(user).append(comment).hashCode();
   }
 }

@@ -2,7 +2,7 @@ package net.softwareminds.foosballbooking.service.config;
 
 import net.softwareminds.foosballbooking.service.controller.AccessConfirmationController;
 import net.softwareminds.foosballbooking.service.controller.FoosballBookingController;
-import net.softwareminds.foosballbooking.service.repository.BookingStorage;
+import net.softwareminds.foosballbooking.service.repository.MemoryBookingStorage;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +59,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public FoosballBookingController foosballServiceController() {
-    return new FoosballBookingController(new BookingStorage());
+    return new FoosballBookingController(new MemoryBookingStorage());
   }
 }
