@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -44,10 +45,10 @@ public class OAuth2ServerConfig {
     public void configure(HttpSecurity http) throws Exception {
       // @formatter:off
       http.requestMatchers()
-          .antMatchers("/appointments", "/usercontext").and()
+          .antMatchers("/bookings").and()
           .authorizeRequests()
-            .antMatchers("/appointments").access("#oauth2.hasScope('read')")
-            .antMatchers("/usercontext").access("#oauth2.hasScope('read')");
+            .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('read')")
+            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('write')");
       // @formatter:on
     }
 
@@ -82,7 +83,7 @@ public class OAuth2ServerConfig {
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
 			   .authorizedGrantTypes("authorization_code", "refresh_token")
 			   .authorities("ROLE_CLIENT")
-			   .scopes("read", "write", "trust")
+			   .scopes("read", "write")
 			   .secret("secret")
 			 .redirectUris("http://localhost:8090/foosballbookingclient/response");
 
