@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class FoosballBookingController {
 
   private final BookingStorage storage;
