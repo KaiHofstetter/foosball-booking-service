@@ -12,8 +12,11 @@ public class MemoryBookingStorage implements BookingStorage {
   Map<UUID, Booking> store = new HashMap<>();
 
   @Override
-  public void storeBooking(Booking booking) {
-    store.put(booking.getId(), booking);
+  public Booking storeBooking(Booking booking) {
+    UUID id = UUID.randomUUID();
+    booking.setId(id);
+    store.put(id, booking);
+    return booking;
   }
 
   @Override

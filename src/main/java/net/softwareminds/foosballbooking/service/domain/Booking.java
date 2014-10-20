@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class Booking {
 
-  private UUID id = UUID.randomUUID();
+  private UUID id = null;
 
   private LocalDateTime begin = null;
   private LocalDateTime end = null;
@@ -34,6 +34,10 @@ public class Booking {
 
   public UUID getId() {
     return id;
+  }
+
+  public void setId(UUID key) {
+    this.id = key;
   }
 
   @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
@@ -83,8 +87,7 @@ public class Booking {
 
     final Booking booking = (Booking) o;
 
-    return new EqualsBuilder().append(this.id, booking.id)
-                              .append(this.begin, booking.begin)
+    return new EqualsBuilder().append(this.begin, booking.begin)
                               .append(this.end, booking.end)
                               .append(this.comment, booking.comment)
                               .append(this.user, booking.user)
@@ -93,6 +96,6 @@ public class Booking {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(id).append(begin).append(end).append(user).append(comment).hashCode();
+    return new HashCodeBuilder().append(begin).append(end).append(user).append(comment).hashCode();
   }
 }
