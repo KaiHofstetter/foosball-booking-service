@@ -47,8 +47,8 @@ public class OAuth2ServerConfig {
       http.requestMatchers()
           .antMatchers("/bookings").and()
           .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('read')")
-            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('write')");
+            .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('Read_Booking_List')")
+            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('Add_Booking')");
       // @formatter:on
     }
 
@@ -72,18 +72,18 @@ public class OAuth2ServerConfig {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
       // @formatter:off
-      clients.inMemory().withClient("testClient")
+      clients.inMemory().withClient("Foosball Booking Read Client")
                            .resourceIds(FOOSBALL_RESOURCE_ID)
                            .authorizedGrantTypes("client_credentials")
                            .authorities("ROLE_CLIENT")
-                           .scopes("read")
+                           .scopes("Read_Booking_List")
                            .secret("secret")
                         .and()
-		 	.withClient("testClient2")
+		 	.withClient("Foosball Booking Read/Write Client")
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
 			   .authorizedGrantTypes("authorization_code", "refresh_token")
 			   .authorities("ROLE_CLIENT")
-			   .scopes("read", "write")
+			   .scopes("Read_Booking_List", "Add_Booking")
 			   .secret("secret")
 			 .redirectUris("http://localhost:8090/foosball-booking-client/authorizationcallback");
 
