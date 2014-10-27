@@ -85,7 +85,7 @@ public class OAuth2ServerConfig {
 			   .authorities("ROLE_CLIENT")
 			   .scopes("Read_Booking_List", "Add_Booking")
 			   .secret("secret")
-			 .redirectUris("http://localhost:8090/foosball-booking-client/authorizationcallback");
+			 .redirectUris("http://localhost:8090/foosball-booking-client/booking");
 
       // @formatter:on
     }
