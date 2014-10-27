@@ -4,6 +4,7 @@
         import="org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter" %>
 <%@ page
         import="org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException" %>
+<%@ page import="org.springframework.security.web.WebAttributes" %>
 <%@ taglib prefix="authz"
            uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,15 +27,14 @@
     <h1>Foosball Booking Service</h1>
 
     <%
-        if (session.getAttribute(AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null && !(session.getAttribute(
-                AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) instanceof UnapprovedClientAuthenticationException)) {
+        if (session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) != null && !(session.getAttribute(
+                WebAttributes.AUTHENTICATION_EXCEPTION) instanceof UnapprovedClientAuthenticationException)) {
     %>
     <div class="error">
         <h2>Woops!</h2>
 
         <p>
-            Access could not be granted. (<%=((AuthenticationException) session.getAttribute(
-                AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY)).getMessage()%>)
+            Access could not be granted. (<%=((AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).getMessage()%>)
         </p>
     </div>
     <%
@@ -45,33 +45,32 @@
     <authz:authorize ifAllGranted="ROLE_USER">
         <h2>Please Confirm</h2>
 
-        <p>
-            You hereby authorize "
-            <c:out value="${client.clientId}"/>
-            " to access your protected resources.
-        </p>
+        <h3><c:out value="${client.clientId}"/> requests permission for:</h3>
 
         <form id="confirmationForm" name="confirmationForm"
               action="<%=request.getContextPath()%>/oauth/authorize" method="post">
             <input name="user_oauth_approval" value="true" type="hidden"/>
-            <ul class="list-unstyled">
+
+            <div class="form-group">
                 <c:forEach items="${scopes}" var="scope">
-                    <c:set var="approved">
-                        <c:if test="${scope.value}"> checked</c:if>
-                    </c:set>
-                    <c:set var="denied">
-                        <c:if test="${!scope.value}"> checked</c:if>
-                    </c:set>
-                    <li>
-                        <div class="form-group">
-                                ${scope.key}: <input type="radio" name="${scope.key}"
-                                                     value="true" ${approved}>Approve</input> <input type="radio"
-                                                                                                     name="${scope.key}" value="false" ${denied}>Deny</input>
+                    <div class="row">
+                        <label class="col-sm-3 control-label">
+                            <c:if test="${scope.key=='scope.Read_Booking_List'}">Reading the booking list</c:if>
+                            <c:if test="${scope.key=='scope.Add_Booking'}">Adding bookings on behalf of you</c:if>
+                        </label>
+
+                        <div class="col-sm-2">
+                            <input type="radio" name="${scope.key}" value="true">Approve</input>
                         </div>
-                    </li>
+                        <div class="col-sm-2">
+                            <input type="radio" name="${scope.key}" value="false" checked>Deny</input>
+                        </div>
+                    </div>
                 </c:forEach>
-            </ul>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+            <div class="row">
+                <button class="col-sm-1 btn btn-primary" type="submit">Submit</button>
+            </div>
         </form>
 
     </authz:authorize>
