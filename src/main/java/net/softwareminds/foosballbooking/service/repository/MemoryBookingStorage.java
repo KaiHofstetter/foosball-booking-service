@@ -2,30 +2,36 @@ package net.softwareminds.foosballbooking.service.repository;
 
 import net.softwareminds.foosballbooking.service.domain.Booking;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 public class MemoryBookingStorage implements BookingStorage {
 
-  Map<UUID, Booking> store = new HashMap<>();
+  Map<String, Booking> store = new TreeMap<>();
 
   @Override
   public Booking storeBooking(Booking booking) {
-    UUID id = UUID.randomUUID();
+    String id = UUID.randomUUID().toString();
     booking.setId(id);
     store.put(id, booking);
     return booking;
   }
 
   @Override
-  public void deleteBooking(Booking booking) {
-    store.remove(booking.getId());
+  public void deleteBooking(String bookingId) {
+    store.remove(bookingId);
   }
 
   @Override
-  public Collection<Booking> getAllBookings() {
-    return store.values();
+  public Booking getBooking(String bookingId) {
+    return store.get(bookingId);
+  }
+
+  @Override
+  public List<Booking> getAllBookings() {
+    return new ArrayList(store.values());
   }
 }
