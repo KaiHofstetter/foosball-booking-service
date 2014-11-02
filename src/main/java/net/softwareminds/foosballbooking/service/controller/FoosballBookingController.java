@@ -2,22 +2,35 @@ package net.softwareminds.foosballbooking.service.controller;
 
 import net.softwareminds.foosballbooking.service.domain.Booking;
 import net.softwareminds.foosballbooking.service.repository.BookingStorage;
+import net.softwareminds.foosballbooking.service.resources.BookingResource;
+import net.softwareminds.foosballbooking.service.resources.BookingResourceAssembler;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/bookings")
 public class FoosballBookingController {
 
   private final BookingStorage storage;
+
+  @Autowired
+  private BookingResourceAssembler bookingResourceAssembler;
 
   public FoosballBookingController(BookingStorage storage) {
     this.storage = storage;
@@ -26,15 +39,38 @@ public class FoosballBookingController {
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-  public Collection<Booking> getBookings() {
-    return storage.getAllBookings();
+  public List<BookingResource> getBookings() {
+    return bookingResourceAssembler.toResources(storage.getAllBookings());
   }
 
   @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-  public void addBooking(@RequestBody Booking booking) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    String name = auth.getName();
-    booking.setUser(name);
+  public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
+    setAuthenticatedUser(booking);
+
     storage.storeBooking(booking);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(linkTo(methodOn(getClass()).getBooking(booking.getId().toString())).toUri());
+    return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+  }
+
+  private void setAuthenticatedUser(Booking booking) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if(auth!=null) {
+      String name = auth.getName();
+      booking.setUser(name);
+    }
+  }
+
+  @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = "application/json")
+  public BookingResource getBooking(@PathVariable("id") String id) {
+    return bookingResourceAssembler.toResource(storage.getBooking(id));
+  }
+
+  @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = "application/json")
+  public ResponseEntity<Void> deleteBooking(@PathVariable("id") String id) {
+    storage.deleteBooking(id);
+
+    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
   }
 }
