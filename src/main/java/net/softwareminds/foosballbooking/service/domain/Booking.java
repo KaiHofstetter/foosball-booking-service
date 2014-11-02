@@ -8,13 +8,14 @@ import net.softwareminds.foosballbooking.service.util.JsonLocalDateTimeSerialize
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.hateoas.Identifiable;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Booking {
 
-  private UUID id = null;
+  private String id = null;
 
   private LocalDateTime begin = null;
   private LocalDateTime end = null;
@@ -32,12 +33,12 @@ public class Booking {
     this.comment = comment;
   }
 
-  public UUID getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(UUID key) {
-    this.id = key;
+  public void setId(String id) {
+    this.id = id;
   }
 
   @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
