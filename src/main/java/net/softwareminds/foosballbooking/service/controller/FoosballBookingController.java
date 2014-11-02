@@ -6,6 +6,7 @@ import net.softwareminds.foosballbooking.service.resources.BookingResource;
 import net.softwareminds.foosballbooking.service.resources.BookingResourceAssembler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +40,11 @@ public class FoosballBookingController {
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-  public List<BookingResource> getBookings() {
-    return bookingResourceAssembler.toResources(storage.getAllBookings());
+  public Resources<BookingResource> getBookings() {
+    List<Booking> bookingList = storage.getAllBookings();
+    Resources<BookingResource> bookingListResource = new Resources<BookingResource>(bookingResourceAssembler.toResources(bookingList));
+    bookingListResource.add(linkTo(methodOn(getClass()).getBookings()).withSelfRel());
+    return bookingListResource;
   }
 
   @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
