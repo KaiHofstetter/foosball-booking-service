@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,7 +40,7 @@ public class FoosballBookingController {
     this.storage.storeBooking(new Booking(LocalDateTime.of(2014, 10, 8, 14, 45), LocalDateTime.of(2014, 10, 8, 15, 15), "Anna", "Foosball!"));
   }
 
-  @RequestMapping(method = RequestMethod.GET, produces = {"application/hal+json", "application/json"})
+  @RequestMapping(method = RequestMethod.GET, produces = {"application/hal+json", MediaType.APPLICATION_JSON_VALUE})
   public Resources<BookingResource> getBookings() {
     List<Booking> bookingList = storage.getAllBookings();
     Resources<BookingResource> bookingListResource = new Resources<BookingResource>(bookingResourceAssembler.toResources(bookingList));
@@ -47,7 +48,7 @@ public class FoosballBookingController {
     return bookingListResource;
   }
 
-  @RequestMapping(method = RequestMethod.POST, consumes = {"application/hal+json", "application/json"})
+  @RequestMapping(method = RequestMethod.POST, consumes = {"application/hal+json", MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
     setAuthenticatedUser(booking);
 
@@ -66,12 +67,12 @@ public class FoosballBookingController {
     }
   }
 
-  @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = {"application/hal+json", "application/json"})
+  @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = {"application/hal+json", MediaType.APPLICATION_JSON_VALUE})
   public BookingResource getBooking(@PathVariable("id") String id) {
     return bookingResourceAssembler.toResource(storage.getBooking(id));
   }
 
-  @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = {"application/hal+json", "application/json"})
+  @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Void> deleteBooking(@PathVariable("id") String id) {
     storage.deleteBooking(id);
 
