@@ -7,6 +7,7 @@ import net.softwareminds.foosballbooking.service.resources.BookingResourceAssemb
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.util.Arrays;
 
 @Configuration
+@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
