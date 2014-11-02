@@ -5,11 +5,6 @@ import net.softwareminds.foosballbooking.service.domain.Booking;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
-import java.util.UUID;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 public class BookingResourceAssembler extends ResourceAssemblerSupport<Booking, BookingResource> {
 
   public BookingResourceAssembler() {
@@ -23,7 +18,7 @@ public class BookingResourceAssembler extends ResourceAssemblerSupport<Booking, 
 
   @Override
   protected BookingResource instantiateResource(Booking booking) {
-    return new BookingResource(booking.getBegin(), booking.getEnd(), booking.getUser(), booking.getComment());
+    return new BookingResource(booking);
   }
 
 }
