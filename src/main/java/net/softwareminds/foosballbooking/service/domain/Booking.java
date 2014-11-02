@@ -1,5 +1,6 @@
 package net.softwareminds.foosballbooking.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 public class Booking {
 
+  @JsonIgnore
   private String id = null;
 
   private LocalDateTime begin = null;
