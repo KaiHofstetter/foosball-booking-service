@@ -52,19 +52,20 @@ public class FoosballBookingController {
   public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
     setAuthenticatedUser(booking);
 
-    storage.storeBooking(booking);
+    booking = storage.storeBooking(booking);
 
     HttpHeaders headers = new HttpHeaders();
     headers.setLocation(linkTo(methodOn(getClass()).getBooking(booking.getId().toString())).toUri());
     return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
   }
 
-  private void setAuthenticatedUser(Booking booking) {
+  private Booking setAuthenticatedUser(Booking booking) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if(auth!=null) {
-      String name = auth.getName();
-      booking.setUser(name);
+      booking = new Booking(booking.getBegin(), booking.getEnd(), auth.getName(), booking.getComment());
     }
+
+    return booking;
   }
 
   @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = {"application/hal+json", MediaType.APPLICATION_JSON_VALUE})

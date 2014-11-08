@@ -83,55 +83,55 @@ public class OAuth2ServerConfig {
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
 			   .authorizedGrantTypes("authorization_code", "refresh_token")
 			   .authorities("ROLE_CLIENT")
-			   .scopes("Read_Booking_List", "Add_Booking")
-			   .secret("secret")
-			 .redirectUris("http://localhost:8090/foosball-booking-client/booking");
+                           .scopes("Read_Booking_List", "Add_Booking")
+                           .secret("secret")
+                           .redirectUris("http://localhost:8090/foosball-booking-client/authorization-code-callback");
 
-      // @formatter:on
+        // @formatter:on
+      }
+
+
+      @Override
+      public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler).authenticationManager(authenticationManager);
+      }
+
+      @Override
+      public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.realm("sparklr2/client");
+      }
+
+      @Bean
+      public TokenStore tokenStore() {
+        return new InMemoryTokenStore();
+      }
     }
 
+    protected static class Stuff {
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-      endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler).authenticationManager(authenticationManager);
-    }
+      @Autowired
+      private ClientDetailsService clientDetailsService;
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-      oauthServer.realm("sparklr2/client");
-    }
+      @Autowired
+      private TokenStore tokenStore;
 
-    @Bean
-    public TokenStore tokenStore() {
-      return new InMemoryTokenStore();
+      @Bean
+      public ApprovalStore approvalStore() throws Exception {
+        TokenApprovalStore store = new TokenApprovalStore();
+        store.setTokenStore(tokenStore);
+        return store;
+      }
+
+      @Bean
+      @Lazy
+      @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+      public UserApprovalHandler userApprovalHandler() throws Exception {
+        UserApprovalHandler handler = new UserApprovalHandler();
+        handler.setApprovalStore(approvalStore());
+        handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
+        handler.setClientDetailsService(clientDetailsService);
+        handler.setUseApprovalStore(true);
+        return handler;
+      }
     }
   }
-
-  protected static class Stuff {
-
-    @Autowired
-    private ClientDetailsService clientDetailsService;
-
-    @Autowired
-    private TokenStore tokenStore;
-
-    @Bean
-    public ApprovalStore approvalStore() throws Exception {
-      TokenApprovalStore store = new TokenApprovalStore();
-      store.setTokenStore(tokenStore);
-      return store;
-    }
-
-    @Bean
-    @Lazy
-    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public UserApprovalHandler userApprovalHandler() throws Exception {
-      UserApprovalHandler handler = new UserApprovalHandler();
-      handler.setApprovalStore(approvalStore());
-      handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
-      handler.setClientDetailsService(clientDetailsService);
-      handler.setUseApprovalStore(true);
-      return handler;
-    }
-  }
-}

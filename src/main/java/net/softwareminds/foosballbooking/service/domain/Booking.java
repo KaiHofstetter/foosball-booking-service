@@ -19,7 +19,12 @@ public class Booking {
   @JsonIgnore
   private String id = null;
 
+  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
+  @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
   private LocalDateTime begin = null;
+
+  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
+  @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
   private LocalDateTime end = null;
 
   private String user = null;
@@ -29,6 +34,11 @@ public class Booking {
   }
 
   public Booking(LocalDateTime begin, LocalDateTime end, String user, String comment) {
+    this(null, begin, end, user, comment);
+  }
+
+  public Booking(String id, LocalDateTime begin, LocalDateTime end, String user, String comment) {
+    this.id = id;
     this.begin = begin;
     this.end = end;
     this.user = user;
@@ -39,40 +49,16 @@ public class Booking {
     return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
-  public void setBegin(LocalDateTime begin) {
-    this.begin = begin;
-  }
-
-  @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
   public LocalDateTime getBegin() {
     return begin;
   }
 
-  @JsonDeserialize(using = JsonLocalDateTimeDeserializer.class)
-  public void setEnd(LocalDateTime end) {
-    this.end = end;
-  }
-
-  @JsonSerialize(using = JsonLocalDateTimeSerializer.class)
   public LocalDateTime getEnd() {
     return end;
   }
 
-  public void setUser(String user) {
-    this.user = user;
-  }
-
   public String getUser() {
     return user;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
   }
 
   public String getComment() {

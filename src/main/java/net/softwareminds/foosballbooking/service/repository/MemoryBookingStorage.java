@@ -15,7 +15,7 @@ public class MemoryBookingStorage implements BookingStorage {
   @Override
   public Booking storeBooking(Booking booking) {
     String id = UUID.randomUUID().toString();
-    booking.setId(id);
+    booking = new Booking(id, booking.getBegin(), booking.getEnd(), booking.getUser(), booking.getComment());
     store.put(id, booking);
     return booking;
   }
