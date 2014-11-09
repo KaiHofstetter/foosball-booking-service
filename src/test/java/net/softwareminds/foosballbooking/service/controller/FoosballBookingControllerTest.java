@@ -2,24 +2,22 @@ package net.softwareminds.foosballbooking.service.controller;
 
 import net.softwareminds.foosballbooking.service.domain.Booking;
 import net.softwareminds.foosballbooking.service.repository.BookingStorage;
+import net.softwareminds.foosballbooking.service.resources.BookingResource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.hateoas.Resources;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FoosballBookingControllerTest {
@@ -44,7 +42,7 @@ public class FoosballBookingControllerTest {
   public void testGetBookings_success() {
     when(mockedBookingStorage.getAllBookings()).thenReturn(Arrays.asList(testBooking1, testBooking2));
 
-    Collection<Booking> actualBookings = classUnderTest.getBookings();
+    Resources<BookingResource> actualBookings = classUnderTest.getBookings();
 
     assertThat(actualBookings, contains(testBooking1, testBooking2));
   }

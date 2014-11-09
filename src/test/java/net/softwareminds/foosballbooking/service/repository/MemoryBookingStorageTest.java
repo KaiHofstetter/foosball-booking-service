@@ -31,8 +31,8 @@ public class MemoryBookingStorageTest {
 
   @Test
   public void testDeleteBooking_success() {
-    classUnderTest.storeBooking(testBooking);
-    classUnderTest.deleteBooking(testBooking);
+    Booking storedBooking = classUnderTest.storeBooking(testBooking);
+    classUnderTest.deleteBooking(storedBooking.getId());
 
     assertThat(classUnderTest.getAllBookings().size(), is(0));
   }
