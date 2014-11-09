@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class MemoryBookingStorage implements BookingStorage {
 
-  Map<String, Booking> store = new TreeMap<>();
+  final private Map<String, Booking> store = new TreeMap<>();
 
   @Override
   public Booking storeBooking(Booking booking) {

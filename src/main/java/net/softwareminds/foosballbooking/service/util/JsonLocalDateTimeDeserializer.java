@@ -1,12 +1,9 @@
 package net.softwareminds.foosballbooking.service.util;
 
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,7 +14,7 @@ public class JsonLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTim
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
   @Override
-  public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+  public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
     return LocalDateTime.parse(jp.getText(), formatter);
   }
 }
