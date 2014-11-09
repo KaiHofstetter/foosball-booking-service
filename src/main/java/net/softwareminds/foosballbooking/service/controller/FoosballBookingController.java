@@ -50,8 +50,7 @@ public class FoosballBookingController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = {"application/hal+json", MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
-    setAuthenticatedUser(booking);
-
+    booking = setAuthenticatedUser(booking);
     booking = storage.storeBooking(booking);
 
     HttpHeaders headers = new HttpHeaders();
