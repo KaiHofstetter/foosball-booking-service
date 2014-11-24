@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
@@ -48,10 +47,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public AccessConfirmationController accessConfirmationController(ClientDetailsService clientDetailsService, ApprovalStore approvalStore) {
+  public AccessConfirmationController accessConfirmationController(ClientDetailsService clientDetailsService) {
     AccessConfirmationController accessConfirmationController = new AccessConfirmationController();
     accessConfirmationController.setClientDetailsService(clientDetailsService);
-    accessConfirmationController.setApprovalStore(approvalStore);
     return accessConfirmationController;
   }
 
@@ -69,4 +67,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
   public FoosballBookingController foosballServiceController() {
     return new FoosballBookingController(new MemoryBookingStorage());
   }
+
 }
