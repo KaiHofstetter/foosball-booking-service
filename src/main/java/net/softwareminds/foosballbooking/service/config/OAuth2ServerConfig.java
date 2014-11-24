@@ -1,14 +1,9 @@
 package net.softwareminds.foosballbooking.service.config;
 
-import net.softwareminds.foosballbooking.service.oauth.UserApprovalHandler;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,10 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
-import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
@@ -59,12 +52,6 @@ public class OAuth2ServerConfig {
   protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private TokenStore tokenStore;
-
-    @Autowired
-    private org.springframework.security.oauth2.provider.approval.UserApprovalHandler userApprovalHandler;
-
-    @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
@@ -85,53 +72,22 @@ public class OAuth2ServerConfig {
 			   .authorities("ROLE_CLIENT")
                            .scopes("Read_Booking_List", "Add_Booking")
                            .secret("secret")
-                           .redirectUris("http://localhost:8090/foosball-booking-client/authorization-code-callback");
-
+                           .redirectUris("http://localhost:8090/foosball-booking-client/booking");
         // @formatter:on
-      }
-
-
-      @Override
-      public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler).authenticationManager(authenticationManager);
-      }
-
-      @Override
-      public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.realm("sparklr2/client");
-      }
-
-      @Bean
-      public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
-      }
     }
 
-    protected static class Stuff {
 
-      @Autowired
-      private ClientDetailsService clientDetailsService;
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+      endpoints.tokenStore(new InMemoryTokenStore())
+               .authenticationManager(authenticationManager);
+    }
 
-      @Autowired
-      private TokenStore tokenStore;
-
-      @Bean
-      public ApprovalStore approvalStore() throws Exception {
-        TokenApprovalStore store = new TokenApprovalStore();
-        store.setTokenStore(tokenStore);
-        return store;
-      }
-
-      @Bean
-      @Lazy
-      @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-      public UserApprovalHandler userApprovalHandler() throws Exception {
-        UserApprovalHandler handler = new UserApprovalHandler();
-        handler.setApprovalStore(approvalStore());
-        handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
-        handler.setClientDetailsService(clientDetailsService);
-        handler.setUseApprovalStore(true);
-        return handler;
-      }
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+      // The value will be returned in 'WWW-Authenticate' header, if the client credentials in the 'Authorization' header are wrong:
+      // WWW-Authenticate: Basic realm="Foosball Booking Service API"
+      oauthServer.realm("Foosball Booking Service API");
     }
   }
+}
