@@ -26,28 +26,6 @@ public class OAuth2ServerConfig {
   private static final String FOOSBALL_RESOURCE_ID = "foosballbooking";
 
   @Configuration
-  @EnableResourceServer
-  protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-      resources.resourceId(FOOSBALL_RESOURCE_ID);
-    }
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-      // @formatter:off
-      http.requestMatchers()
-          .antMatchers("/bookings").and()
-          .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('Read_Booking_List')")
-            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('Add_Booking')");
-      // @formatter:on
-    }
-
-  }
-
-  @Configuration
   @EnableAuthorizationServer
   protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
@@ -88,6 +66,28 @@ public class OAuth2ServerConfig {
       // The value will be returned in 'WWW-Authenticate' header, if the client credentials in the 'Authorization' header are wrong:
       // WWW-Authenticate: Basic realm="Foosball Booking Service API"
       oauthServer.realm("Foosball Booking Service API");
+    }
+  }
+
+
+  @Configuration
+  @EnableResourceServer
+  protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+      resources.resourceId(FOOSBALL_RESOURCE_ID);
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+      // @formatter:off
+      http.requestMatchers()
+          .antMatchers("/bookings").and()
+          .authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('Read_Booking_List')")
+            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('Add_Booking')");
+      // @formatter:on
     }
   }
 }
