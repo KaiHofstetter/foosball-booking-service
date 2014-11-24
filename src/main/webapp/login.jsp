@@ -39,19 +39,16 @@
 					</legend>
 					<div class="form-group">
 						<label for="username">Username:</label> <input id="username"
-							class="form-control" type='text' name='j_username'
+							class="form-control" type='text' name='username'
 							value="Peter" />
 					</div>
 					<div class="form-group">
 						<label for="password">Password:</label> <input id="password"
-							class="form-control" type='text' name='j_password' value="secret" />
+							class="form-control" type='text' name='password' value="secret" />
 					</div>
 					<button class="btn btn-primary" type="submit">Login</button>
-					<%--<input type="hidden" name="${_csrf.parameterName}"--%>
-						<%--value="${_csrf.token}" />--%>
 				</fieldset>
 			</form>
-
 		</div>
 	</div>
 </body>

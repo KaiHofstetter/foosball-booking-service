@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -51,17 +50,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .exceptionHandling()
           .accessDeniedPage("/login.jsp?authorization_error=true")
         .and()
-        .csrf().disable()
         .logout()
           .logoutSuccessUrl("/index.jsp")
           .logoutUrl("/logout.do")
         .and()
         .formLogin()
-          .usernameParameter("j_username")
-          .passwordParameter("j_password")
-          .failureUrl("/login.jsp?authentication_error=true")
           .loginPage("/login.jsp")
-          .loginProcessingUrl("/login.do");
-    // @formatter:on
-  }
+          .loginProcessingUrl("/login.do")
+          .failureUrl("/login.jsp?authentication_error=true")
+        .and()
+        .csrf().disable();
+    // @formatter:off
+    }
 }
