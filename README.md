@@ -37,7 +37,7 @@ curl -X GET -H "Authorization: Bearer <returned bearer token>" -H "Accept: appli
 
 Authorization Code Grant Sample
 ===============================
-For the Authorization Code Grant sample use Foosball Booking Client (https://github.com/KaiHofstetter/foosball-booking-service)
+For a Authorization Code Grant sample try the Foosball Booking Client (https://github.com/KaiHofstetter/foosball-booking-service)
 
  
 
