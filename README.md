@@ -25,15 +25,15 @@ Client Credential Grant Sample
 ==============================
 
 1. Get an access token:
-```HTTP
-curl -X POST -H "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkIENsaWVudDpzZWNyZXQ=" -H "Content-Type: application/x-www-form-urlencoded" -d 'grant_type=client_credentials' http://localhost:8080/foosball-booking-service/oauth/token
-```
-
+   ```HTTP
+   curl -X POST -H "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkIENsaWVudDpzZWNyZXQ=" -H "Content-Type:    application/x-www-form-urlencoded" -d 'grant_type=client_credentials' http://localhost:8080/foosball-booking-service/oauth/token
+   ```
+   
 2. Request the booking list:
-Copy the returned access token from step 1 in the authorization header:
-```HTTP
-curl -X GET -H "Authorization: Bearer <returned bearer token>" -H "Accept: application/json" -H "Cache-Control: no-cache" http://localhost:8080/foosball-booking-service/bookings
-```
+   Copy the returned access token from step 1 in the authorization header:
+   ```HTTP
+   curl -X GET -H "Authorization: Bearer <returned bearer token>" -H "Accept: application/json" -H "Cache-Control: no-cache" http://localhost:8080/foosball-booking-service/bookings
+   ```
 
 Authorization Code Grant Sample
 ===============================
