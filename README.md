@@ -21,8 +21,8 @@ Getting Started
 * You need Java JDK 8 and Maven 3.* to build and run the foosball-booking-service. 
 * Simply build and run it with mvn tomcat7:run
 
-Client Credential Sample
-========================
+Client Credential Grant Sample
+==============================
 
 1. Get an access token:
 ```HTTP
@@ -34,6 +34,10 @@ Copy the returned access token from step 1 in the authorization header:
 ```HTTP
 curl -X GET -H "Authorization: Bearer <returned bearer token>" -H "Accept: application/json" -H "Cache-Control: no-cache" http://localhost:8080/foosball-booking-service/bookings
 ```
+
+Authorization Code Grant Sample
+===============================
+For the Authorization Code Grant sample use Foosball Booking Client (https://github.com/KaiHofstetter/foosball-booking-service)
 
  
 
