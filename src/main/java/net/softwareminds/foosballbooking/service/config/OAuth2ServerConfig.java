@@ -38,18 +38,18 @@ public class OAuth2ServerConfig {
 
       // @formatter:off
       clients.inMemory().withClient("Foosball Booking Read Client")
+                           .secret("secret")
                            .resourceIds(FOOSBALL_RESOURCE_ID)
                            .authorizedGrantTypes("client_credentials")
                            .authorities("ROLE_CLIENT")
                            .scopes("Read_Booking_List")
-                           .secret("secret")
                         .and()
 		 	.withClient("Foosball Booking Read/Write Client")
+                           .secret("secret")
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
 			   .authorizedGrantTypes("authorization_code", "refresh_token")
 			   .authorities("ROLE_CLIENT")
                            .scopes("Read_Booking_List", "Add_Booking")
-                           .secret("secret")
                            .redirectUris("http://localhost:8090/foosball-booking-client/booking");
         // @formatter:on
     }
