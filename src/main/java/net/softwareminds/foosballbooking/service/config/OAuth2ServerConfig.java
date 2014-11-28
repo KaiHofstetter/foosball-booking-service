@@ -2,7 +2,6 @@ package net.softwareminds.foosballbooking.service.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,9 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
-import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
@@ -41,14 +37,12 @@ public class OAuth2ServerConfig {
                            .secret("secret")
                            .resourceIds(FOOSBALL_RESOURCE_ID)
                            .authorizedGrantTypes("client_credentials")
-                           .authorities("ROLE_CLIENT")
                            .scopes("Read_Booking_List")
                         .and()
 		 	.withClient("Foosball Booking Read/Write Client")
                            .secret("secret")
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
 			   .authorizedGrantTypes("authorization_code", "refresh_token")
-			   .authorities("ROLE_CLIENT")
                            .scopes("Read_Booking_List", "Add_Booking")
                            .redirectUris("http://localhost:8090/foosball-booking-client/booking");
         // @formatter:on
