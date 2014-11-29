@@ -1,0 +1,152 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+			"name": "Foosball Booking Service",
+			"description": "",
+			"order": [],
+			"folders": [
+				{
+					"id": "9311b15b-997c-bd6f-bada-776b20a4fb70",
+					"name": "1 - Client Credential Grant",
+					"description": "",
+					"order": [
+						"5bd51fd3-ad8e-2dad-79f1-180dd9ed5481",
+						"2928d657-6370-f933-ad0c-2b076ee72286"
+					],
+					"collection_name": "Foosball Booking Service",
+					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
+				},
+				{
+					"id": "5e891704-eee0-a94a-eda4-b6577a395170",
+					"name": "2 - Authorization Code Grant",
+					"description": "",
+					"order": [
+						"49584b3a-ab6d-4446-7852-681b10c7a96e",
+						"d9d5b69b-6a77-8b01-1010-acd2be0c86bb"
+					],
+					"collection_name": "Foosball Booking Service",
+					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
+				}
+			],
+			"timestamp": 1415479437733,
+			"synced": false,
+			"remote_id": 0,
+			"requests": [
+				{
+					"id": "2928d657-6370-f933-ad0c-2b076ee72286",
+					"headers": "Authorization: Bearer bd68472a-38bf-453e-937b-8ffdf23822f1\nAccept: application/json\n",
+					"url": "http://localhost:8080/foosball-booking-service/bookings",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"time": 1417031095854,
+					"name": "2. Get All Bookings",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
+					"id": "49584b3a-ab6d-4446-7852-681b10c7a96e",
+					"headers": "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkL1dyaXRlIENsaWVudDpzZWNyZXQ=\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token?state=xyz",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "code",
+							"value": "E2jlc3",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8090/foosball-booking-client/booking",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"time": 1417292724648,
+					"name": "2. Get an Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
+					"id": "5bd51fd3-ad8e-2dad-79f1-180dd9ed5481",
+					"headers": "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkIENsaWVudDpzZWNyZXQ=\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"time": 1415517283218,
+					"name": "1. Get an Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
+					"id": "d9d5b69b-6a77-8b01-1010-acd2be0c86bb",
+					"headers": "Content-Type: application/x-www-form-urlencoded\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/authorize?response_type=code&client_id=Foosball Booking Read/Write Client&redirect_uri=http://localhost:8090/foosball-booking-client/booking&state=xyz",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"time": 1417292364429,
+					"name": "1. Get an Authorization Code",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				}
+			]
+		}
+	],
+	"environments": [],
+	"headerPresets": [
+		{
+			"id": "8e493a70-5c1c-bae7-fc35-773106e3b23f",
+			"name": "Bearer Authorization",
+			"headers": [
+				{
+					"key": "Authorization",
+					"value": "Bearer",
+					"type": "text",
+					"name": "Authorization",
+					"enabled": true
+				}
+			],
+			"timestamp": 1417032585534
+		}
+	],
+	"globals": []
+}
