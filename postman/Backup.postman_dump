@@ -28,12 +28,56 @@
 					],
 					"collection_name": "Foosball Booking Service",
 					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
+				},
+				{
+					"id": "dfc19189-624c-7b60-7ac8-202e15aa6463",
+					"name": "3. Implicit Grant",
+					"description": "",
+					"order": [
+						"1cea14dc-f36c-35bc-c41b-da36df237e1a"
+					],
+					"collection_name": "Foosball Booking Service",
+					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
+				},
+				{
+					"id": "9fb35517-cb3e-4c37-5a82-6e82067e868e",
+					"name": "Resource Owner Credential Grant",
+					"description": "",
+					"order": [
+						"5f9deb01-6d09-10ef-d1f6-cceee2b828db"
+					],
+					"collection_name": "Foosball Booking Service",
+					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
 				}
 			],
 			"timestamp": 1415479437733,
 			"synced": false,
 			"remote_id": 0,
 			"requests": [
+				{
+					"id": "1cea14dc-f36c-35bc-c41b-da36df237e1a",
+					"headers": "",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/authorize?response_type=token&client_id=Foosball Booking Read/Write Client&redirect_uri=http://localhost:8090/foosball-booking-client/booking&state=xyz",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"time": 1417294460742,
+					"name": "1. Get an Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
 				{
 					"id": "2928d657-6370-f933-ad0c-2b076ee72286",
 					"headers": "Authorization: Bearer bd68472a-38bf-453e-937b-8ffdf23822f1\nAccept: application/json\n",
@@ -67,7 +111,7 @@
 						},
 						{
 							"key": "code",
-							"value": "E2jlc3",
+							"value": "RzSFtl",
 							"type": "text",
 							"enabled": true
 						},
@@ -81,7 +125,7 @@
 					"dataMode": "urlencoded",
 					"version": 2,
 					"tests": "",
-					"time": 1417292724648,
+					"time": 1417294443728,
 					"name": "2. Get an Access Token",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
@@ -112,17 +156,60 @@
 					"responses": []
 				},
 				{
+					"id": "5f9deb01-6d09-10ef-d1f6-cceee2b828db",
+					"headers": "Content-Type: application/x-www-form-urlencoded\nAuthorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkL1dyaXRlIENsaWVudDpzZWNyZXQ=\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "username",
+							"value": "Peter",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"time": 1417294223579,
+					"name": "1. Get an Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
 					"id": "d9d5b69b-6a77-8b01-1010-acd2be0c86bb",
-					"headers": "Content-Type: application/x-www-form-urlencoded\n",
+					"headers": "",
 					"url": "http://localhost:8080/foosball-booking-service/oauth/authorize?response_type=code&client_id=Foosball Booking Read/Write Client&redirect_uri=http://localhost:8090/foosball-booking-client/booking&state=xyz",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
-					"data": [],
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						}
+					],
 					"dataMode": "params",
 					"version": 2,
 					"tests": "",
-					"time": 1417292364429,
+					"time": 1417294402793,
 					"name": "1. Get an Authorization Code",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
