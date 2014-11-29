@@ -24,6 +24,12 @@ public class OAuth2ServerConfig {
   @EnableAuthorizationServer
   protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
+    public static final String CLIENT_CREDENTIALS_GRANT = "client_credentials";
+    public static final String AUTHORIZATION_CODE_GRANT = "authorization_code";
+    public static final String REFRESH_TOKEN = "refresh_token";
+    public static final String IMPLICIT_GRANT = "implicit";
+    public static final String RESOURCE_OWNER_PASSWORD_CREDENTIALS_GRANT = "password";
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -35,13 +41,13 @@ public class OAuth2ServerConfig {
       clients.inMemory().withClient("Foosball Booking Read Client")
                            .secret("secret")
                            .resourceIds(FOOSBALL_RESOURCE_ID)
-                           .authorizedGrantTypes("client_credentials")
+                           .authorizedGrantTypes( CLIENT_CREDENTIALS_GRANT)
                            .scopes("Read_Booking_List")
                         .and()
 		 	.withClient("Foosball Booking Read/Write Client")
                            .secret("secret")
 			   .resourceIds(FOOSBALL_RESOURCE_ID)
-			   .authorizedGrantTypes("authorization_code", "refresh_token")
+			   .authorizedGrantTypes( AUTHORIZATION_CODE_GRANT,  REFRESH_TOKEN,  IMPLICIT_GRANT,  RESOURCE_OWNER_PASSWORD_CREDENTIALS_GRANT)
                            .scopes("Read_Booking_List", "Add_Booking")
                            .redirectUris("http://localhost:8090/foosball-booking-client/booking");
         // @formatter:on
