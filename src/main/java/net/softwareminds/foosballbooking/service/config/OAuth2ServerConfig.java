@@ -81,10 +81,14 @@ public class OAuth2ServerConfig {
     public void configure(HttpSecurity http) throws Exception {
       // @formatter:off
       http.requestMatchers()
-          .antMatchers("/bookings").and()
+          .antMatchers("/bookings")
+          .and()
           .authorizeRequests()
             .antMatchers(HttpMethod.GET, "/bookings").access("#oauth2.hasScope('Read_Booking_List')")
-            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('Add_Booking')");
+            .antMatchers(HttpMethod.POST, "/bookings").access("#oauth2.hasScope('Add_Booking')")
+          .and()
+          .authorizeRequests()
+             .anyRequest().denyAll();
       // @formatter:on
     }
   }
