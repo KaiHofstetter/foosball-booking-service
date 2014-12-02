@@ -5,26 +5,29 @@
 			"id": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 			"name": "Foosball Booking Service",
 			"description": "",
-			"order": [],
+			"order": [
+				"2928d657-6370-f933-ad0c-2b076ee72286",
+				"341b81be-e985-8291-f10d-1554a40af3bc"
+			],
 			"folders": [
 				{
 					"id": "9311b15b-997c-bd6f-bada-776b20a4fb70",
-					"name": "1 - Client Credential Grant",
+					"name": "1. Client Credential Grant",
 					"description": "",
 					"order": [
-						"5bd51fd3-ad8e-2dad-79f1-180dd9ed5481",
-						"2928d657-6370-f933-ad0c-2b076ee72286"
+						"5bd51fd3-ad8e-2dad-79f1-180dd9ed5481"
 					],
 					"collection_name": "Foosball Booking Service",
 					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
 				},
 				{
 					"id": "5e891704-eee0-a94a-eda4-b6577a395170",
-					"name": "2 - Authorization Code Grant",
+					"name": "2. Authorization Code Grant",
 					"description": "",
 					"order": [
+						"d9d5b69b-6a77-8b01-1010-acd2be0c86bb",
 						"49584b3a-ab6d-4446-7852-681b10c7a96e",
-						"d9d5b69b-6a77-8b01-1010-acd2be0c86bb"
+						"9257d1d1-9ffe-4bbe-919a-f678d4100ec8"
 					],
 					"collection_name": "Foosball Booking Service",
 					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
@@ -41,10 +44,11 @@
 				},
 				{
 					"id": "9fb35517-cb3e-4c37-5a82-6e82067e868e",
-					"name": "Resource Owner Credential Grant",
+					"name": "4. Resource Owner Credential Grant",
 					"description": "",
 					"order": [
-						"5f9deb01-6d09-10ef-d1f6-cceee2b828db"
+						"5f9deb01-6d09-10ef-d1f6-cceee2b828db",
+						"9475c595-59d9-7150-385d-45d5986cc864"
 					],
 					"collection_name": "Foosball Booking Service",
 					"collection_id": "f0b18ab1-e72d-39b8-272d-6325def16bf5"
@@ -73,14 +77,14 @@
 					"version": 2,
 					"tests": "",
 					"time": 1417294460742,
-					"name": "1. Get an Access Token",
+					"name": "Get an Access Token",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
 				},
 				{
 					"id": "2928d657-6370-f933-ad0c-2b076ee72286",
-					"headers": "Authorization: Bearer bd68472a-38bf-453e-937b-8ffdf23822f1\nAccept: application/json\n",
+					"headers": "Authorization: Bearer cd24fb33-7cba-4515-b093-5223bbc81a03\nAccept: application/json\n",
 					"url": "http://localhost:8080/foosball-booking-service/bookings",
 					"preRequestScript": "",
 					"pathVariables": {},
@@ -89,8 +93,25 @@
 					"dataMode": "params",
 					"version": 2,
 					"tests": "",
-					"time": 1417031095854,
-					"name": "2. Get All Bookings",
+					"time": 1417466633483,
+					"name": "Get All Bookings",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
+					"id": "341b81be-e985-8291-f10d-1554a40af3bc",
+					"headers": "Authorization: Bearer cd24fb33-7cba-4515-b093-5223bbc81a03\nContent-Type: application/json\n",
+					"url": "http://localhost:8080/foosball-booking-service/bookings",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": "{\n\"user\": \"Peter\",\n\"comment\": \"I need to foosball so badly!\",\n\"begin\": \"2014-10-08 14:15\",\n\"end\": \"2014-10-08 14:45\"\n}",
+					"dataMode": "raw",
+					"version": 2,
+					"tests": "",
+					"time": 1417466640602,
+					"name": "Add Booking",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
@@ -98,7 +119,7 @@
 				{
 					"id": "49584b3a-ab6d-4446-7852-681b10c7a96e",
 					"headers": "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkL1dyaXRlIENsaWVudDpzZWNyZXQ=\n",
-					"url": "http://localhost:8080/foosball-booking-service/oauth/token?state=xyz",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "POST",
@@ -111,7 +132,7 @@
 						},
 						{
 							"key": "code",
-							"value": "RzSFtl",
+							"value": "tE5apJ",
 							"type": "text",
 							"enabled": true
 						},
@@ -125,8 +146,8 @@
 					"dataMode": "urlencoded",
 					"version": 2,
 					"tests": "",
-					"time": 1417294443728,
-					"name": "2. Get an Access Token",
+					"time": 1417520271206,
+					"name": "Get an Access Token",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
@@ -150,7 +171,7 @@
 					"version": 2,
 					"tests": "",
 					"time": 1415517283218,
-					"name": "1. Get an Access Token",
+					"name": "Get an Access Token",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
@@ -186,10 +207,71 @@
 					"version": 2,
 					"tests": "",
 					"time": 1417294223579,
-					"name": "1. Get an Access Token",
+					"name": "Get an Access Token",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
+				},
+				{
+					"id": "9257d1d1-9ffe-4bbe-919a-f678d4100ec8",
+					"headers": "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkL1dyaXRlIENsaWVudDpzZWNyZXQ=\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "refresh_token",
+							"value": "9e4306bd-d546-4394-89b2-1272cd7481c2",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"time": 1417504445091,
+					"name": "Refresh Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": []
+				},
+				{
+					"id": "9475c595-59d9-7150-385d-45d5986cc864",
+					"headers": "Authorization: Basic Rm9vc2JhbGwgQm9va2luZyBSZWFkL1dyaXRlIENsaWVudDpzZWNyZXQ=\n",
+					"url": "http://localhost:8080/foosball-booking-service/oauth/token",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "refresh_token",
+							"value": "9e4306bd-d546-4394-89b2-1272cd7481c2",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"time": 1417504445091,
+					"name": "Refresh Access Token",
+					"description": "",
+					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
+					"responses": [],
+					"synced": true
 				},
 				{
 					"id": "d9d5b69b-6a77-8b01-1010-acd2be0c86bb",
@@ -210,7 +292,7 @@
 					"version": 2,
 					"tests": "",
 					"time": 1417294402793,
-					"name": "1. Get an Authorization Code",
+					"name": "Get an Authorization Code",
 					"description": "",
 					"collectionId": "f0b18ab1-e72d-39b8-272d-6325def16bf5",
 					"responses": []
