@@ -47,6 +47,9 @@
 							class="form-control" type='text' name='password' value="secret" />
 					</div>
 					<button class="btn btn-primary" type="submit">Login</button>
+					<input type="hidden"
+						   name="${_csrf.parameterName}"
+						   value="${_csrf.token}"/>
 				</fieldset>
 			</form>
 		</div>

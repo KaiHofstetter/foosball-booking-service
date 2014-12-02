@@ -53,9 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .formLogin()
           .loginPage("/login.jsp")
           .loginProcessingUrl("/login.do")
-          .failureUrl("/login.jsp?authentication_error=true")
-        .and()
-        .csrf().disable();
+          .failureUrl("/login.jsp?authentication_error=true");
     // @formatter:off
     }
 }

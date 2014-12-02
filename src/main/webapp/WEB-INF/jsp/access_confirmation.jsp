@@ -70,6 +70,9 @@
             <div class="row">
                 <button class="col-sm-1 btn btn-primary" type="submit">Submit</button>
             </div>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
         </form>
 
     </authz:authorize>
