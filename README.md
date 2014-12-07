@@ -18,7 +18,7 @@ Configured OAuth 2.0 Clients:
 
 Configured Users:
 |User Name |User Password|
-|----------|             |
+|----------|-------------|
 |Peter     |secret       |
 |Bob       |secret       |
 
