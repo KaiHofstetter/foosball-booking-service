@@ -57,7 +57,7 @@ The dump file (postman/Backup.postman_dump) can be used to import the requests i
 * Request an access token with one of the 4 grants. 
 * Use this token to either get the list of bookings or add a booking to the list. 
 
-The access token from the Client Credentials Grant just has permission to get the booking list! The request for an Authorization Code with the Authorization Code Grant cannot be done with Postman, since Postman can not follow redirets. Simply copy the URL from Postman in a browser and copy the returend code from the browser back to Postman to request an access token. The same goes for requesting an access token with the Implicit Grant.  
+The access token from the Client Credentials Grant just has permission to get the booking list! The request for an Authorization Code with the Authorization Code Grant cannot be done with Postman, since Postman can not follow redirets. Simply copy the URL from Postman in a browser and copy the returned code from the browser back to Postman to request an access token. The same goes for requesting an access token with the Implicit Grant.  
 
 
 
