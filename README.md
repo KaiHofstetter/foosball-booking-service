@@ -18,8 +18,9 @@ Configured OAuth 2.0 Clients:
 
 Configured Users:
 |User Name |User Password|
-|Peter     |secret|
-|Bob     |secret|
+|----------|             |
+|Peter     |secret       |
+|Bob       |secret       |
 
 These users can be used for the Authorization Code Grant, Implicit Grant und Resource Owner Password Credentials Grant.
 
